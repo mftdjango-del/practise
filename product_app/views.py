@@ -18,3 +18,6 @@ def product_detail_view(request, uuid, slug):
     return render(request, "product-detail-page.html", {
         "product": product
     })
+    
+def category(request):
+    pass
