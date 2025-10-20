@@ -21,3 +21,7 @@ def product_detail_view(request, uuid, slug):
     
 def category(request):
     pass
+
+
+def test_function(request):
+    pass
