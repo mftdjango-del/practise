@@ -1,0 +1,25 @@
+{% load render_partial %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include 'links.html' %}
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+</head>
+<body>
+{% render_partial 'home_app.views.header_component' %}
+
+{% block content %}
+
+{% endblock %}
+
+
+{% render_partial 'home_app.views.footer_component' %}
+{% include 'scripts.html' %}
+</body>
+</html>
