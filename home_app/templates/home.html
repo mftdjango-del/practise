@@ -206,7 +206,7 @@
                                                 <div class="product-image-wrapper">
                                                     <div class="single-products">
                                                         <div class="productinfo text-center">
-                                                            <img src="/static/images/home/product.jpg" alt="">
+                                                            <img width="268" height="250" src="{{ product.image.url }}" alt="{{ product.title }}">
                                                             <h2>{{ product.price|seperator }} تومان</h2>
                                                             <p>{{ product.title }}</p>
                                                             <a href="{% url 'product-detail' product.uuid product.slug %}" class="btn btn-default add-to-cart"><i
