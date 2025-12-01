@@ -1,0 +1,131 @@
+{% extends '_layout.html' %}
+
+{% block title %}
+    ثبت نام
+{% endblock %}
+
+{% block custom_link %}
+    <style>
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none!important;
+            margin: 0!important;
+        }
+
+        /* برای Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield!important;
+        }
+
+        /* برای سایر مرورگرها */
+        input[type="number"] {
+            appearance: textfield!important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <section id="form"><!--form-->
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="signup-form modern-form"><!--sign up form-->
+                        <div class="form-header">
+                            <h2>ایجاد حساب کاربری جدید</h2>
+                            <p>لطفا اطلاعات خود را برای ثبت نام وارد کنید</p>
+                        </div>
+                        {{ register_form.email.errors }}
+                        {{ register_form.phone.errors }}
+                        {{ register_form.password.errors }}
+                        {{ register_form.re_password.errors }}
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-with-icon">
+                                    <i class="fa fa-envelope"></i>
+                                    {{ register_form.email }}
+                                    {#                            <input type="email" placeholder="آدرس ایمیل" class="modern-input" />#}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-with-icon">
+                                    <i class="fa fa-phone"></i>
+                                    {{ register_form.phone }}
+                                    {#                            <input type="tel" placeholder="تلفن" class="modern-input" dir="rtl"/>#}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-with-icon">
+                                    <i class="fa fa-lock"></i>
+                                    {{ register_form.password }}
+                                    <i onclick="change_type()" id="eye" class="fa fa-eye toggle-password" style="transform: translateX(-400px)translateY(-8px)scale(1.4)!important;position: absolute!important;"></i>
+                                    {#                            <input type="password" placeholder="رمز عبور" class="modern-input" />#}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-with-icon">
+                                    <i class="fa fa-lock"></i>
+                                    {{ register_form.re_password }}
+                                    {#                            <input type="password" placeholder="تکرار رمز عبور" class="modern-input" />#}
+                                </div>
+                            </div>
+                            <div class="form-options">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-text">با <a href="#">قوانین و مقررات</a> موافقم</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-modern">ثبت نام</button>
+                            <div class="form-footer">
+                                <p>قبلا حساب کاربری دارید؟ <a href="login.html">وارد شوید</a></p>
+                            </div>
+                        </form>
+                    </div><!--/sign up form-->
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--/form-->
+{% endblock %}
+{% block custom_script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // انتخاب تمام input‌ها
+            const inputs = document.querySelectorAll('.modern-input');
+
+            // برای هر input رویداد focus و blur اضافه می‌کنیم
+            inputs.forEach(input => {
+                const icon = input.previousElementSibling; // آیکون کناری
+
+                // هنگام فوکوس
+                input.addEventListener('focus', function () {
+                    if (icon && icon.classList.contains('fa')) {
+                        icon.style.color = '#fd9b18'; // رنگ مشکی
+                    }
+                });
+
+                // هنگام از دست دادن فوکوس
+                input.addEventListener('blur', function () {
+                    if (icon && icon.classList.contains('fa')) {
+                        icon.style.color = ''; // بازگشت به رنگ پیش‌فرض
+                    }
+                });
+            });
+        });
+        function change_type(){
+            let eye = document.querySelector("#eye")
+            let eye_input = document.querySelector("#eye-input")
+            if(eye.classList.contains("fa-eye")){
+                eye_input.type = "text"
+                eye.classList.remove("fa-eye")
+                eye.classList.add("fa-eye-slash")
+            }else {
+                eye_input.type = "password"
+                eye.classList.remove("fa-eye-slash")
+                eye.classList.add("fa-eye")
+            }
+
+        }
+    </script>
+{% endblock %}

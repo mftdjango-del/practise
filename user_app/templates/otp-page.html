@@ -1,0 +1,404 @@
+{% extends '_layout.html' %}
+
+{% block title %}
+    ورود OTP
+{% endblock %}
+
+{% block custom_link %}
+    <style>
+        /* استایل‌های فرم OTP */
+        .otp-form {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
+            text-align: center;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .form-header h2 {
+            color: #2c3e50;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .form-header strong {
+            color: #2c3e50;
+        }
+
+        .otp-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0;
+            direction: ltr;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 60px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            font-family: 'BYekan', sans-serif;
+            background: #fafbfc;
+            transition: all 0.3s ease;
+            color: #2c3e50;
+        }
+
+        .otp-input:focus {
+            outline: none;
+            border-color: #fd9b18;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(253, 155, 24, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .otp-input.filled {
+            border-color: #27ae60;
+            background: #f8fff9;
+        }
+
+        /* حذف فلش‌های input number */
+        .otp-input::-webkit-outer-spin-button,
+        .otp-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .otp-input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .resend-code {
+            margin: 25px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .resend-code p {
+            color: #6c757d;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        #countdown {
+            color: #fd9b18;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            margin: 0 5px;
+        }
+
+        #resendLink {
+            color: #fd9b18;
+            font-weight: 600;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        #resendLink:hover {
+            text-decoration: underline;
+        }
+
+        .btn-modern {
+            background: linear-gradient(135deg, #fd9b18, #fe980f);
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'BYekan', sans-serif;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(253, 155, 24, 0.3);
+            margin-top: 20px;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(253, 155, 24, 0.4);
+            background: linear-gradient(135deg, #fe980f, #fd9b18);
+        }
+
+        .btn-modern:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .form-footer p {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .form-footer a {
+            color: #fd9b18;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* انیمیشن برای تغییر input */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .otp-input:focus {
+            animation: pulse 0.3s ease;
+        }
+
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .otp-form {
+                padding: 30px 20px;
+                margin: 0 10px;
+            }
+
+            .form-header h2 {
+                font-size: 20px;
+            }
+
+            .otp-inputs {
+                gap: 8px;
+            }
+
+            .otp-input {
+                width: 45px;
+                height: 55px;
+                font-size: 20px;
+            }
+
+            .resend-code {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .otp-inputs {
+                gap: 6px;
+            }
+
+            .otp-input {
+                width: 40px;
+                height: 50px;
+                font-size: 18px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <section id="form"><!--form-->
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="otp-form modern-form"><!--otp form-->
+                        <div class="form-header">
+                            <h2>ورود با کد تأیید</h2>
+                            <p>کد ۶ رقمی ارسال شده به ایمیل <strong dir="ltr">{{ email }}</strong> را وارد کنید</p>
+                        </div>
+                        {% if error %}
+                        	<div class="status alert alert-danger text-center">کد وارد شده صحیح نیست یا منقضی شده</div>
+                        {% endif %}
+                        <form id="otpForm" method="post">
+                            {% csrf_token %}
+                            <div class="otp-inputs">
+                                <input type="number" name="inp1" class="otp-input" autofocus maxlength="1" data-index="1" required>
+                                <input type="number" name="inp2" class="otp-input" maxlength="1" data-index="2" required>
+                                <input type="number" name="inp3" class="otp-input" maxlength="1" data-index="3" required>
+                                <input type="number" name="inp4" class="otp-input" maxlength="1" data-index="4" required>
+                                <input type="number" name="inp5" class="otp-input" maxlength="1" data-index="5" required>
+                                <input type="number" name="inp6" class="otp-input" maxlength="1" data-index="6" required>
+                            </div>
+
+                            <div class="resend-code">
+                                <p>کد را دریافت نکردید؟
+                                    <span id="countdown">۰۲:۰۰</span>
+                                    <a href="#" id="resendLink" style="display: none;">ارسال مجدد کد</a>
+                                </p>
+                            </div>
+
+                            <button type="submit" class="btn btn-modern">تأیید و ورود</button>
+
+                            <div class="form-footer">
+                                <p>روش ورود دیگری دارید؟ <a href="login.html">برگشت به صفحه ورود</a></p>
+                            </div>
+                        </form>
+                    </div><!--/otp form-->
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--/form-->
+{% endblock %}
+{% block custom_script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const otpInputs = document.querySelectorAll('.otp-input');
+            const form = document.getElementById('otpForm');
+            const countdownElement = document.getElementById('countdown');
+            const resendLink = document.getElementById('resendLink');
+
+            // حذف فلش‌های input number
+            otpInputs.forEach(input => {
+                // حذف فلش‌ها در مرورگرهای مختلف
+                input.style.webkitAppearance = 'none';
+                input.style.mozAppearance = 'textfield';
+                input.style.appearance = 'none';
+
+                // جلوگیری از ورود اعداد غیر از 0-9
+                input.addEventListener('input', function (e) {
+                    if (this.value.length > 1) {
+                        this.value = this.value.slice(0, 1);
+                    }
+
+                    if (this.value !== '') {
+                        const nextInput = this.nextElementSibling;
+                        if (nextInput && nextInput.classList.contains('otp-input')) {
+                            nextInput.focus();
+                        }
+                    }
+                });
+
+                // مدیریت کلیدهای کیبورد
+                input.addEventListener('keydown', function (e) {
+                    if (e.key === 'Backspace' && this.value === '') {
+                        const prevInput = this.previousElementSibling;
+                        if (prevInput && prevInput.classList.contains('otp-input')) {
+                            prevInput.focus();
+                        }
+                    }
+
+                    if (e.key === 'ArrowRight') {
+                        const nextInput = this.nextElementSibling;
+                        if (nextInput && nextInput.classList.contains('otp-input')) {
+                            nextInput.focus();
+                        }
+                    }
+
+                    if (e.key === 'ArrowLeft') {
+                        const prevInput = this.previousElementSibling;
+                        if (prevInput && prevInput.classList.contains('otp-input')) {
+                            prevInput.focus();
+                        }
+                    }
+                });
+
+                // وقتی input فوکوس می‌شود، محتوایش انتخاب شود
+                input.addEventListener('focus', function () {
+                    this.select();
+                });
+            });
+
+            // اتوماتیک سابمیت وقتی آخرین input پر شد
+            otpInputs[otpInputs.length - 1].addEventListener('input', function () {
+                if (this.value !== '') {
+                    // بررسی اینکه همه input ها پر شده‌اند
+                    const allFilled = Array.from(otpInputs).every(input => input.value !== '');
+                    if (allFilled) {
+                        setTimeout(() => {
+                            form.submit();
+                        }, 300);
+                    }
+                }
+            });
+
+            // تایمر شمارش معکوس
+            let timeLeft = 120; // 2 دقیقه
+            function updateCountdown() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    setTimeout(updateCountdown, 1000);
+                } else {
+                    countdownElement.style.display = 'none';
+                    resendLink.style.display = 'inline';
+                }
+            }
+
+            // شروع تایمر
+            updateCountdown();
+
+            // مدیریت ارسال مجدد کد
+            resendLink.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // ریست تایمر
+                timeLeft = 120;
+                countdownElement.style.display = 'inline';
+                resendLink.style.display = 'none';
+                updateCountdown();
+
+                // پاک کردن input ها
+                otpInputs.forEach(input => {
+                    input.value = '';
+                });
+
+                // فوکوس روی اولین input
+                otpInputs[0].focus();
+
+                // نمایش پیام موفقیت (در واقع باید به بکند ارسال شود)
+                alert('کد تأیید جدید برای شما ارسال شد');
+            });
+
+            // سابمیت فرم
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // جمع‌آوری کد OTP
+                const otpCode = Array.from(otpInputs).map(input => input.value).join('');
+
+                if (otpCode.length === 6) {
+                    // در اینجا کد OTP به بکند ارسال می‌شود
+                    console.log('کد OTP وارد شده:', otpCode);
+                    alert('در حال بررسی کد...');
+                    // اینجا می‌توانید درخواست AJAX به سرور ارسال کنید
+                } else {
+                    alert('لطفاً کد ۶ رقمی را کامل وارد کنید');
+                    otpInputs[0].focus();
+                }
+            });
+        });
+    </script>
+{% endblock %}

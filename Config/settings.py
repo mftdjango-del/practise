@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'home_app',
     'django_render_partial',
     'product_app',
-    'contact_app'
+    'contact_app',
+    'user_app',
+    'blog_app'
 ]
 
 MIDDLEWARE = [
@@ -52,8 +54,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'Config.middleware.Ratelimit'
 ]
 
+AUTH_USER_MODEL = "user_app.User"
 ROOT_URLCONF = 'Config.urls'
 
 TEMPLATES = [
@@ -125,3 +129,22 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "mftdjango@gmail.com"
+EMAIL_HOST_PASSWORD = "hklm gjhf fjtb hucr"
+EMAIL_PORT = 587
+
+
+SESSION_COOKIE_AGE = 3600
+SESSION_SAVE_EVERY_REQUEST = True

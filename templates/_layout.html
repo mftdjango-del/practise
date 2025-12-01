@@ -15,6 +15,11 @@
     {% endblock %}
 </head>
 <body>
+{% if messages %}
+    {% for message in messages %}
+        <div class="{{ message.tags }}" hidden="hidden" id="alert-message">{{ message }}</div>
+    {% endfor %}
+{% endif %}
 {% render_partial 'home_app.views.header_component' %}
 
 {% block content %}
@@ -27,5 +32,32 @@
 {% block custom_script %}
 
 {% endblock %}
+
+{% if messages %}
+    <script>
+        try {
+            let msg_div = document.querySelector("#alert-message")
+            if (msg_div.className === "success") {
+                Swal.fire({
+                    position: "center",
+                    icon: msg_div.className,
+                    title: msg_div.innerHTML,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else if (msg_div.className === "error") {
+                Swal.fire({
+                    position: "center",
+                    icon: msg_div.className,
+                    title: msg_div.innerHTML,
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            }
+        } catch (error) {
+            console.log("e")
+        }
+    </script>
+{% endif %}
 </body>
 </html>

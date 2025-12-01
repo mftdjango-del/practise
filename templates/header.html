@@ -50,11 +50,19 @@
                 <div class="col-sm-8 header-middle-menu">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-user"></i> حساب کاربـری</a></li>
-                            <li><a href="#"><i class="fa fa-star"></i><i class="fa fa-bus" aria-hidden="true"></i> لیست علاقه مندی ها</a></li>
-                            <li><a href="login.html"><i class="fa fa-lock"></i><i class="fa fa-bath" aria-hidden="true"></i> ورود</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> سبد خریـد</a></li>
-                            <img width="48" height="48" src="https://img.icons8.com/doodle/48/star--v1.png" alt="star--v1"/>
+                            {% if request.user.is_authenticated %}
+                                <li><a href="#"><i class="fa fa-user"></i> حساب کاربـری</a></li>
+                                <li><a href="#"><i class="fa fa-star"></i><i class="fa fa-bus" aria-hidden="true"></i>
+                                    لیست علاقه مندی ها</a></li>
+                                </li>
+                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> سبد خریـد</a></li>
+                                <li><a href="{% url 'log-out' %}"><i class="fa fa-close"></i>خروج</a></li>
+                            {% else %}
+                                <li><a href="{% url 'register' %}"><i class="fa fa-user"></i> ثبت نام</a></li>
+                                <li><a href="{% url 'login' %}"><i class="fa fa-lock"></i> ورود</a>
+                                </li>
+                            {% endif %}
+                            {#                            <img width="48" height="48" src="https://img.icons8.com/doodle/48/star--v1.png" alt="star--v1"/>#}
                         </ul>
                     </div>
                 </div>
@@ -84,20 +92,21 @@
                     </div>
                     <div class="mainmenu pull-right">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html" class="active">خـانه</a></li>
+                            <li><a href="/" class="active">خـانه</a></li>
                             <li class="dropdown"><a href="{% url 'product-list' %}">فروشگـاه</a>
                             </li>
                             <li class="dropdown"><a href="#">دسته بندی ها<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     {% for category in categories %}
-                                    	<li><a href="{% url 'category' category.id %}">{{ category.title }}</a></li>
+                                        <li><a href="{% url 'category' category.id %}">{{ category.title }}</a></li>
                                     {% endfor %}
 
 
                                 </ul>
                             </li>
+                            <li><a href="{% url 'blog-list' %}">مقالات</a></li>
                             <li><a href="About.html">درباره مـا</a></li>
-                            <li><a href="contact-us.html">تماس با مـا</a></li>
+                            <li><a href="{% url 'contact-us' %}">تماس با مـا</a></li>
                         </ul>
                     </div>
                 </div>

@@ -1,0 +1,405 @@
+{% extends '_layout.html' %}
+
+{% block title %}
+    ورود
+{% endblock %}
+
+{% block custom_link %}
+    <style>
+        .login-form-modern {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eaeaea;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-header h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #bdc3c7;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .modern-input {
+            width: 100%;
+            padding: 15px 50px 15px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'BYekan', sans-serif;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+            color: #2c3e50;
+        }
+
+        .modern-input:focus {
+            outline: none;
+            border-color: #fd9b18;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(253, 155, 24, 0.1);
+        }
+
+        .modern-input:focus + i {
+            color: #fd9b18;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 13px;
+            color: #5d6d7e;
+            position: relative;
+            padding-right: 30px;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkmark {
+            position: absolute;
+            right: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: #d5dbdb;
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: #fd9b18;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-text {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .forgot-password {
+            font-size: 13px;
+            color: #fd9b18;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #fd9b18, #fe980f);
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'BYekan', sans-serif;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(253, 155, 24, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(253, 155, 24, 0.4);
+            background: linear-gradient(135deg, #fe980f, #fd9b18);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .divider:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 0;
+            left: 0;
+            height: 1px;
+            background: #eee;
+        }
+
+        .divider span {
+            background: #fff;
+            padding: 0 15px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            background: #fff;
+            color: #555;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'BYekan', sans-serif;
+        }
+
+        .social-btn i {
+            margin-left: 8px;
+            font-size: 16px;
+        }
+
+        .social-btn.google:hover {
+            border-color: #db4437;
+            color: #db4437;
+        }
+
+        .social-btn.facebook:hover {
+            border-color: #4267B2;
+            color: #4267B2;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .form-footer p {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .form-footer a {
+            color: #fd9b18;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .login-form-modern {
+                padding: 25px 20px;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+
+            .form-options {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <section id="form"><!--form-->
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="login-form-modern"><!--login form-->
+                        <div class="form-header">
+                            <h2>ورود به حساب کاربری</h2>
+                            <p>لطفا اطلاعات حساب خود را وارد کنید</p>
+                        </div>
+
+                        <!-- نمایش خطاها -->
+                        {{ login_form.email.errors }}
+                        {{ login_form.password.errors }}
+
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <div class="form-group">
+                                <div class="input-with-icon">
+                                    <i class="fa fa-envelope"></i>
+                                    {{ login_form.email }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-with-icon">
+                                    <i class="fa fa-lock"></i>
+                                    {{ login_form.password }}
+                                    <i onclick="change_type()" id="eye" class="fa fa-eye toggle-password" style="left: 15px; right: auto; transform: translateY(-50%)!important;"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-options">
+                                <label class="checkbox-container">
+{#                                    <span class="checkmark"></span>#}
+                                    <span class="checkbox-text">مرا به خاطر بسپار</span>
+                                    <input type="checkbox" name="" id="" value="test">
+                                </label>
+                                <a href="#" class="forgot-password">رمز عبور را فراموش کرده‌اید؟</a>
+                            </div>
+
+                            <button type="submit" class="btn-login">ورود به حساب</button>
+
+                            <div class="divider">
+                                <span>یا ورود با</span>
+                            </div>
+
+                            <div class="social-login">
+                                <button type="button" class="social-btn google">
+                                    <i class="fa fa-google"></i> گوگل
+                                </button>
+                                <button type="button" class="social-btn facebook">
+                                    <i class="fa fa-facebook"></i> فیسبوک
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="form-footer">
+                            <p>حساب کاربری ندارید؟ <a href="{% url 'register' %}">ثبت نام کنید</a></p>
+                        </div>
+                    </div><!--/login form-->
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--/form-->
+{% endblock %}
+
+{% block custom_script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // انتخاب تمام input‌ها
+            const inputs = document.querySelectorAll('.modern-input');
+
+            // برای هر input رویداد focus و blur اضافه می‌کنیم
+            inputs.forEach(input => {
+                const icon = input.previousElementSibling; // آیکون کناری
+
+                // هنگام فوکوس
+                input.addEventListener('focus', function () {
+                    if (icon && icon.classList.contains('fa')) {
+                        icon.style.color = '#fd9b18';
+                    }
+                });
+
+                // هنگام از دست دادن فوکوس
+                input.addEventListener('blur', function () {
+                    if (icon && icon.classList.contains('fa')) {
+                        icon.style.color = '#bdc3c7';
+                    }
+                });
+
+                // تنظیم placeholder برای فیلدها
+                if (input.type === 'email') {
+                    input.placeholder = 'آدرس ایمیل خود را وارد کنید';
+                } else if (input.type === 'password') {
+                    input.placeholder = 'رمز عبور خود را وارد کنید';
+                }
+            });
+        });
+
+        function change_type(){
+            let eye = document.querySelector("#eye");
+            let passwordInput = document.querySelector("input[type='password']");
+
+            if(eye.classList.contains("fa-eye")){
+                passwordInput.type = "text";
+                eye.classList.remove("fa-eye");
+                eye.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eye.classList.remove("fa-eye-slash");
+                eye.classList.add("fa-eye");
+            }
+        }
+
+        // مدیریت کلیک روی دکمه‌های شبکه‌های اجتماعی
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.classList.contains('google')) {
+                    alert('ورود با گوگل');
+                    // در اینجا می‌توانید منطق ورود با گوگل را اضافه کنید
+                } else if (this.classList.contains('facebook')) {
+                    alert('ورود با فیسبوک');
+                    // در اینجا می‌توانید منطق ورود با فیسبوک را اضافه کنید
+                }
+            });
+        });
+    </script>
+{% endblock %}

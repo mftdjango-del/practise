@@ -9,11 +9,11 @@
 @font-face {
 	
 	font-family: 'BYekan';
-	src: url('../fonts/BYekan.eot');
-	src: url('../fonts/BYekan.eot?#iefix') format('embedded-opentype'),
-	url('../fonts/BYekan.woff') format('woff'),
-	url('../fonts/BYekan.ttf') format('truetype'),
-	url('../fonts/BYekan.svg#BYekan') format('svg');
+	src: url('/static/fonts/BYekan.eot');
+	src: url('/static/fonts/BYekan.eot?#iefix') format('embedded-opentype'),
+	url('/static/fonts/BYekan.woff') format('woff'),
+	url('/static/fonts/BYekan.ttf') format('truetype'),
+	url('/static/fonts/BYekan.svg#BYekan') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -2799,4 +2799,213 @@ h2.title {
 
 .zoom-image:hover {
   transform: scale(1.5);
+}
+.errorlist{
+    width: 100%!important;
+    background-color: #fb5b5b!important;
+    color: white!important;
+    padding: 5px 0!important;
+}
+.errorlist li{
+    width: 100%!important;
+    text-align: center!important;
+    font-size: 17px!important;
+}
+/* استایل‌های جدید برای فرم ثبت‌نام مدرن */
+.modern-form {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px 30px;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid #f0f0f0;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.form-header h2 {
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4f97c8;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.modern-input {
+    width: 100%;
+    padding: 15px 50px 15px 15px!important;
+    border: 1px solid rgba(136, 136, 136, 0.5) !important;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'BYekan', sans-serif;
+    transition: all 0.3s ease;
+    background: #fafbfc;
+    color: #2c3e50;
+}
+
+.modern-input:focus {
+    outline: none;
+    border-color: #fd9b18;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(253, 155, 24, 0.1);
+}
+
+.modern-input:focus + i {
+    color: #fd9b18!important;
+}
+
+.form-options {
+    margin: 25px 0;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: #5d6d7e;
+    position: relative;
+    padding-right: 30px;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    right: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #d5dbdb;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #fd9b18;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-text a {
+    color: #fd9b18;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.checkbox-text a:hover {
+    text-decoration: underline;
+}
+
+.btn-modern {
+    background: linear-gradient(135deg, #fd9b18, #fe980f);
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 15px 30px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'BYekan', sans-serif;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(253, 155, 24, 0.3);
+}
+
+.btn-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(253, 155, 24, 0.4);
+    background: linear-gradient(135deg, #fe980f, #fd9b18);
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #ecf0f1;
+}
+
+.form-footer p {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin: 0;
+}
+
+.form-footer a {
+    color: #fd9b18;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    .modern-form {
+        padding: 30px 20px;
+        margin: 0 10px;
+    }
+
+    .form-header h2 {
+        font-size: 20px;
+    }
+
+    .modern-input {
+        padding: 12px 45px 12px 12px;
+    }
+}
+.phone-arrow{
+    appearance: none!important;
 }
